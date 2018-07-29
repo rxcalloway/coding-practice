@@ -46,18 +46,44 @@ public class RyanLL
         tail = n;
     }
 
-    public bool RemoveNode(int target)
+public bool RemoveNode(int target)
+{
+    if (head == null) return false;
+    if (head == tail)
     {
-        if (head == null) return false;
-        Node n = head;
-        while (n != null && n.number != target)
-        {
-            n = n.next;
-        }
-
-        if (n == null) return false;
+        head = null;
+        tail = null;
         return true;
     }
+
+    //TODO: Clean up code, looks messy
+
+    Node n = head;
+    if (n.number == target)
+    {
+        head = head.next;
+        return true;
+    }
+
+    while (n != null && n.next.number != target)
+    {
+        n = n.next;
+    }
+
+    if (n == null) return false;
+    if (n.next == tail)
+    {
+        n.next = null;
+        tail = n;
+        return true;
+    }
+
+    Node temp = n.next.next;
+    n.next.next = null;
+    n.next = temp;
+
+    return true;
+}
 
     public void PrintValues()
     {
